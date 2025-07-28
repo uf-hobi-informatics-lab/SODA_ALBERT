@@ -1,6 +1,6 @@
 # Executing the SDoH extraction pipeline
 
-## Running the pipeline from Docker:
+## Running the pipeline from CLI:
 ### Required files:
 - <b>Raw text directory</b>: location of the clinical notes from which you need to extract SDoH data
 - <b>Output directory</b>: location where you wish to save the resulting file containing the extracted SDoH information
