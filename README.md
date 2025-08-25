@@ -13,6 +13,88 @@ To run the pipeline, please execute the run.sh script included in this repositor
 
 Currently, the pipeline is configured to only store the resulting .csv output file to disk; to keep all intermediate files, add the `--debug` flag to the run.sh script.
 
+### Example folder structure:
+```
+/path/to/
+├── root_dir/
+│   └── raw_text/
+│       ├── file1.txt
+│       ├── file2.txt
+│       └── ...
+└── models/
+    ├── re/
+    │   └── bert/
+    │       └── ...
+    └── ner/
+        └── ALBERT/
+            └── ...
+```
+
+### Example configuration file:
+```
+docker_run:
+  pipeline: sdoh
+  dependency_tree:
+    - [csv_output, brat]
+    - [csv_output, brat_re]
+    - [csv_output, encoded_text]
+    - [brat_re,tsv]
+    - [tsv,brat]
+    - [tsv,bio_init]
+    - [tsv,encoded_text]
+    - [brat,bio_init]
+    - [brat,encoded_text]
+    - [bio_init, encoded_text]
+    - [bio_init, raw_text]
+    - [encoded_text, raw_text]
+  root_dir: /your/root/dir             # output directory
+  raw_data_dir: /your/root/dir/raw_text
+  sent_tokenizer:                                                       # tokenizer config
+    _class: SentenceBoundaryDetection
+    params:
+      deid_pattern: \[\*\*|\*\*\]
+
+  ner_model:                                                            # ner model config
+    _class: Transformer
+    # _class: TransformerMRC
+    params:
+      model_type: albert
+      pretrained_model: /path/to/downloaded/model/ner/ALBERT
+      do_lower_case: None
+      eval_batch_size: 8
+      max_seq_length: 512
+      data_has_offset_information: None
+      use_bio: False
+      log_lvl: w
+
+  relation_model:                                                       # rel model config
+    _class:
+    preprocess:
+      CUTOFF: 1
+      EN1_START: "[s1]"
+      EN1_END: "[e1]"
+      EN2_START: "[s2]"
+      EN2_END: "[e2]"
+      NEG_REL: NonRel
+      [...]
+    params:
+      model_type: bert
+      new_model_dir: /path/to/downloaded/model/rel/bert
+      do_lower_case: True
+      eval_batch_size: 4
+      max_seq_length: 512
+      data_format_mode: 0
+      data_file_header: True
+      num_core: 1
+      non_relation_label: NonRel
+      classification_mode: bin
+      log_lvl: w
+
+  csv_output_params:                                                  # csv_output config
+    force_rewrite: True # remove old csv if True
+    ouput_file: output.csv
+```
+
  
 
 # SDoH extraction NLP pipeline output format
