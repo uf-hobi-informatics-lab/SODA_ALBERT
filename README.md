@@ -98,14 +98,14 @@ docker_run:
 ```
 ## System requeriments:
 - ftfy==6.1.1
-- nltk==3.8.1
-- numpy==1.26.4
+- nltk==3.6.5
+- numpy==1.23.5
 - packaging==21.3
-- pandas==2.2.2
+- pandas==1.5.2
 - PyYAML==6.0
-- scikit_learn==1.4.2
-- tqdm==4.64.0
-- transformers==4.53.1
+- scikit_learn==1.1.3
+- tqdm==4.64.1
+- transformers==4.20.1
   
 As a rule of thumb, your system should have at least three times the memory relative to the total size of your notes.
 
