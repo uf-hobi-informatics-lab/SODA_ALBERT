@@ -13,6 +13,8 @@ To run the pipeline, please execute the run.sh script included in this repositor
 
 Currently, the pipeline is configured to only store the resulting .csv output file to disk; to keep all intermediate files, add the `--debug` flag to the run.sh script.
 
+To verify that the pipeline is functioning correctly, run it on the provided sample files. The generated output should match the `output.csv` file located in the `sample/` directory.
+
 ### Example folder structure:
 ```
 /path/to/
@@ -94,6 +96,18 @@ docker_run:
     force_rewrite: True # remove old csv if True
     ouput_file: output.csv
 ```
+## System requeriments:
+- ftfy==6.1.1
+- nltk==3.8.1
+- numpy==1.26.4
+- packaging==21.3
+- pandas==2.2.2
+- PyYAML==6.0
+- scikit_learn==1.4.2
+- tqdm==4.64.0
+- transformers==4.53.1
+  
+As a rule of thumb, your system should have at least three times the memory relative to the total size of your notes.
 
  
 
