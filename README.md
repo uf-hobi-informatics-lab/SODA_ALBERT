@@ -108,6 +108,7 @@ docker_run:
 - transformers==4.20.1
   
 As a rule of thumb, your system should have at least three times the memory relative to the total size of your notes.
+<b>Please allow the pipeline about 40 days to process 1 million clinical notes on 120 CPU cores (≈9 notes per hour per core).</b>
 
  
 
